@@ -1,0 +1,10 @@
+{
+  "name": "sprintboard",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "typecheck": "bun run --parallel --filter './apps/*' dev"
+  }
+}
