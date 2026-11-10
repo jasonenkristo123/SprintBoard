@@ -5,6 +5,6 @@
     "apps/*"
   ],
   "scripts": {
-    "typecheck": "bun run --parallel --filter './apps/*' dev"
+    "dev": "bun run --parallel --filter './apps/*' dev"
   }
 }

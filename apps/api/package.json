@@ -3,16 +3,21 @@
     "version": "0.1.0",
     "private": true,
     "type": "module",
+    "types": "./src/index.ts",
+    "exports": {
+        ".": "./src/index.ts"
+    },
     "scripts": {
         "dev": "bun --watch src/index.ts",
         "start": "bun src/index.ts",
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
+        "@elysia/cors": "^1.4.3",
         "elysia": "^1.4.31"
     },
     "devDependencies": {
         "@types/bun": "^1.4.4",
-        "typescript": "^7.0.2"
+        "typescript": "^6.0.3"
     }
 }

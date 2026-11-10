@@ -29,5 +29,9 @@
 		"tailwindcss": "^4.3.0",
 		"typescript": "^6.0.3",
 		"vite": "^8.3.0"
+	},
+	"dependencies": {
+		"@elysia/eden": "^1.4.10",
+		"@sprintboard/api": "workspace:*"
 	}
 }
