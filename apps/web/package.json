@@ -32,6 +32,8 @@
 	},
 	"dependencies": {
 		"@elysia/eden": "^1.4.10",
-		"@sprintboard/api": "workspace:*"
+		"@lucide/svelte": "^1.72.0",
+		"@sprintboard/api": "workspace:*",
+		"better-auth": "^1.7.21"
 	}
 }
