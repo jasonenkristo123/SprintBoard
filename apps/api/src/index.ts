@@ -21,6 +21,6 @@ const app = new Elysia()
     })
     .listen(3000)
 
-    console.log("running")
+    console.log(`running on localhost:${3000}`)
 
 export type APP = typeof app;

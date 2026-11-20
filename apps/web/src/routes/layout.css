@@ -4,4 +4,8 @@
 @theme {
     --color-primary-blue: #4F46E5;
     --font-sans: "Inter", sans-serif;
+    --color-primary-dark: #0B1C30;
+    --color-secondary-text: #464555;
+    --color-primary-background: #F8F9FF;
+    --color-secondary-primary: #EFF4FF;
 }
