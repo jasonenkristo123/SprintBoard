@@ -1,11 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+:root {
+  --color-primary-blue: #4f46e5;
+  --font-sans: "Inter", sans-serif;
+  --color-primary-dark: #0b1c30;
+  --color-secondary-text: #464555;
+  --color-primary-background: #f8f9ff;
+  --color-secondary-primary: #eff4ff;
+}
 
 @theme {
-    --color-primary-blue: #4F46E5;
-    --font-sans: "Inter", sans-serif;
-    --color-primary-dark: #0B1C30;
-    --color-secondary-text: #464555;
-    --color-primary-background: #F8F9FF;
-    --color-secondary-primary: #EFF4FF;
+  --color-primary-blue: #4f46e5;
+  --font-sans: "Inter", sans-serif;
+  --color-primary-dark: #0b1c30;
+  --color-secondary-text: #464555;
+  --color-primary-background: #f8f9ff;
+  --color-secondary-primary: #eff4ff;
 }
