@@ -33,10 +33,23 @@
   }
 
   async function handleLoginGoogle() {
-    await authClient.signIn.social({
-      provider: "google",
-      callbackURL: "http://localhost:5173/",
-    });
+    errorMsg = "";
+
+    try {
+      const { data, error} = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: `${window.location.origin}/dashboard`
+      });
+
+      console.log("Google login result: ", data, error);
+
+      if (error) {
+        errorMsg = error.message ?? "Gagal login dengan Google"
+      }
+    } catch (error) {
+      console.error("google login exception: ", error);
+      errorMsg = "Tidak bisa connect ke server API";
+    }
   }
 </script>
 
