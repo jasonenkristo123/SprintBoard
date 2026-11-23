@@ -2,6 +2,7 @@ import Elysia from "elysia";
 import { cors } from "@elysia/cors"
 import swagger from "@elysiajs/swagger";
 import { betterAuthPlugin } from "./shared/auth-middleware";
+import { projectsModule } from "./modules/project";
 
 const app = new Elysia()
     .use(cors({
@@ -16,9 +17,7 @@ const app = new Elysia()
         status: "ok",
         message: "Sprintboard API is running"
     }))
-    .get("/api/me", ({ user }) => user, {
-        auth: true
-    })
+    .use(projectsModule)
     .listen(3000)
 
     console.log(`running on localhost:${3000}`)
