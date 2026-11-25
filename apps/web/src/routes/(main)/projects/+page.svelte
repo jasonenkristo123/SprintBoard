@@ -1,5 +1,6 @@
 <script lang="ts">
   import CreateProjectModal from "./components/CreateProjectModal.svelte";
+  import DeleteProjectModal from "./components/DeleteProjectModal.svelte";
   import ProjectContent from "./components/ProjectContent.svelte";
   import ProjectHeader from "./components/ProjectHeader.svelte";
   import UpdateProjectModal from "./components/UpdateProjectModal.svelte";
@@ -13,4 +14,5 @@
   <ProjectContent {store} />
   <CreateProjectModal {store} />
   <UpdateProjectModal {store} />
+  <DeleteProjectModal {store} />
 </section>

@@ -13,6 +13,18 @@ export class ProjectsStore {
     isDeleteModalOpen = $state(false);
 
     selectedProject = $state<Project | null>(null);
+    selectedProjectId = $state<string | null>(null);
+
+    openDeleteModal(id: string)     {
+        this.errorMsg = "";
+        this.selectedProjectId = id;
+        this.isDeleteModalOpen = true;
+    }
+
+    closeDeleteModal() {
+        this.isDeleteModalOpen = false;
+        this.selectedProjectId = null;
+    }
 
     openUpdateModal(project: Project) {
         this.errorMsg = "";
@@ -130,17 +142,17 @@ export class ProjectsStore {
         }
     }
 
-    async deleteProject(data: DeleteProjectInput): Promise<boolean> {
+    async deleteProject(id: DeleteProjectInput): Promise<boolean> {
         try {
             this.submitting = true;
             this.errorMsg = "";
 
-            const res = await apiFetch<{message:string}>(`/api/projects/${data.id}`, {
+            const res = await apiFetch<{message:string}>(`/api/projects/${id}`, {
                 method: "DELETE"
             });
 
             if (res) {
-                this.projects = this.projects.filter((p) => p.id !== data.id);
+                this.projects = this.projects.filter((p) => p.id !== id);
             }
 
             return true;
@@ -151,6 +163,4 @@ export class ProjectsStore {
             this.submitting = false;
         }
     }
-
-
 }

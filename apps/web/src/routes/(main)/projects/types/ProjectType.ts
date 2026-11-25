@@ -11,4 +11,4 @@ export type CreateProjectInput = Pick<Project, "name" | "description" | "categor
 export type UpdateProjectInput = {
   id: Project["id"]
 } & Partial<Omit<Project, "id">>;
-export type DeleteProjectInput = Pick<Project, "id">;
+export type DeleteProjectInput = Project["id"];
