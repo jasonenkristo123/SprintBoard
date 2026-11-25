@@ -1,5 +1,5 @@
 import { apiFetch } from "#lib/api.ts";
-import type { CreateProjectInput, Project, StatusFilter } from "../types/ProjectType";
+import type { CreateProjectInput, DeleteProjectInput, Project, StatusFilter, UpdateProjectInput } from "../types/ProjectType";
 
 export class ProjectsStore {
     projects = $state<Project[]>([]);
@@ -9,6 +9,21 @@ export class ProjectsStore {
     submitting = $state(false);
     errorMsg = $state("");
     isCreateModalOpen = $state(false);
+    isUpdateModalOpen = $state(false);
+    isDeleteModalOpen = $state(false);
+
+    selectedProject = $state<Project | null>(null);
+
+    openUpdateModal(project: Project) {
+        this.errorMsg = "";
+        this.selectedProject = project;
+        this.isUpdateModalOpen = true;
+    }
+
+    closeUpdateModal() {
+        this.isUpdateModalOpen = false;
+        this.selectedProject = null;
+    }
 
     counts = $derived({
         all: this.projects.length,
@@ -89,6 +104,53 @@ export class ProjectsStore {
         }
     }
 
+    async updateProject(data: UpdateProjectInput): Promise<boolean> {
+        try {
+            this.submitting = true;
+            this.errorMsg = "";
+
+            const res = await apiFetch<{ message: string; data: Project }>(`/api/projects/${data.id}`, {
+                method: "PATCH",
+                body: JSON.stringify({
+                    name: data.name,
+                    description: data.description,
+                    category: data.category,
+                    status: data.status
+                })
+            });
+
+            this.projects = this.projects.map((p) => (p.id === data.id ? res.data : p));
+
+            return true;
+        } catch (error) {
+            this.errorMsg = error instanceof Error ? error.message : "Gagal memperbarui proyek";
+            return false;
+        } finally {
+            this.submitting = false;
+        }
+    }
+
+    async deleteProject(data: DeleteProjectInput): Promise<boolean> {
+        try {
+            this.submitting = true;
+            this.errorMsg = "";
+
+            const res = await apiFetch<{message:string}>(`/api/projects/${data.id}`, {
+                method: "DELETE"
+            });
+
+            if (res) {
+                this.projects = this.projects.filter((p) => p.id !== data.id);
+            }
+
+            return true;
+        } catch (error) {
+            this.errorMsg = error instanceof Error ? error.message : "Gagal menghapus proyek";
+            return false;
+        } finally {
+            this.submitting = false;
+        }
+    }
 
 
 }

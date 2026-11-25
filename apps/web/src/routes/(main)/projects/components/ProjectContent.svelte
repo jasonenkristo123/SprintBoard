@@ -6,11 +6,19 @@
     ArrowRight,
     EllipsisVertical,
     FolderKanban,
+    Pencil,
     Plus,
+    Trash,
   } from "@lucide/svelte";
 
   let { store }: { store: ProjectsStore } = $props();
+  let openMenuId = $state<string | null>(null);
 
+  function toggleMenu(e: MouseEvent, id: string) {
+    e.stopPropagation();
+
+    openMenuId = openMenuId === id ? null : id;
+  }
   const statusMeta: Record<
     Project["status"],
     { label: string; badgeClass: string; dotClass: string }
@@ -36,6 +44,8 @@
     await store.loadProjects();
   });
 </script>
+
+<svelte:window onclick={() => (openMenuId = null)} />
 
 <div class="w-full mt-6">
   {#if store.loading}
@@ -120,13 +130,43 @@
                 </span>
               </div>
 
-              <button
-                type="button"
-                aria-label="Opsi proyek"
-                class="p-1.5 -mr-1.5 -mt-1 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-primary-dark transition-colors cursor-pointer shrink-0"
-              >
-                <EllipsisVertical size={18} />
-              </button>
+              <div class="relative shrink-0">
+                <button
+                  type="button"
+                  aria-label="Opsi proyek"
+                  onclick={(e) => toggleMenu(e, project.id)}
+                  class="p-1.5 -mr-1.5 -mt-1 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-primary-dark transition-colors cursor-pointer"
+                >
+                  <EllipsisVertical size={18} />
+                </button>
+                {#if openMenuId === project.id}
+                  <div
+                    class="absolute right-0 top-full mt-1 w-36 bg-white border border-black/10 rounded-xl shadow-lg py-1.5 z-20"
+                  >
+                    <button
+                      type="button"
+                      onclick={() => {
+                        openMenuId = null;
+                        store.openUpdateModal(project)
+                      }}
+                      class="w-full flex items-center gap-2 px-3 py-2 text-sm text-primary-dark hover:bg-gray-50 cursor-pointer"
+                    >
+                      <Pencil size={15} />
+                      Update
+                    </button>
+                    <button
+                      type="button"
+                      onclick={() => {
+                        openMenuId = null;
+                      }}
+                      class="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer"
+                    >
+                      <Trash size={15} />
+                      Delete
+                    </button>
+                  </div>
+                {/if}
+              </div>
             </div>
 
             <div class="space-y-1.5">
@@ -147,7 +187,9 @@
             class="px-5 py-3.5 bg-gray-50/70 border-t border-black/5 flex items-center justify-between gap-2"
           >
             <span class="text-xs text-secondary-text font-medium">
-              {project.category ? `Kategori ${project.category}` : "Proyek Umum"}
+              {project.category
+                ? `Kategori ${project.category}`
+                : "Proyek Umum"}
             </span>
             <a
               href={`/projects/${project.id}`}

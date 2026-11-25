@@ -2,6 +2,7 @@
   import CreateProjectModal from "./components/CreateProjectModal.svelte";
   import ProjectContent from "./components/ProjectContent.svelte";
   import ProjectHeader from "./components/ProjectHeader.svelte";
+  import UpdateProjectModal from "./components/UpdateProjectModal.svelte";
   import { ProjectsStore } from "./hooks/Projects.svelte";
 
   const store = new ProjectsStore();
@@ -11,4 +12,5 @@
   <ProjectHeader {store} />
   <ProjectContent {store} />
   <CreateProjectModal {store} />
+  <UpdateProjectModal {store} />
 </section>

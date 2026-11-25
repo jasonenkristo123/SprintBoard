@@ -35,7 +35,8 @@ export const ProjectService = {
             updatedAt: new Date(),
         })
         .where(and(eq(projects.id, id), (eq(projects.userId, userId))))
-
+        .returning();
+        
         return updated ?? null;
     },
 
