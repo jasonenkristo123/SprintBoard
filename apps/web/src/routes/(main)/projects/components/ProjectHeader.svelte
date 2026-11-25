@@ -58,6 +58,7 @@
 
   <button
     type="button"
+    onclick={() => store.openCreateModal()}
     class="w-full sm:w-auto lg:w-auto inline-flex items-center justify-center gap-2 bg-primary-blue hover:bg-primary-blue/90 active:scale-[0.99] text-white text-sm font-medium px-4 py-2.5 rounded-xl shadow-xs transition-all duration-200 cursor-pointer shrink-0 whitespace-nowrap"
   >
     <Plus size={18} />

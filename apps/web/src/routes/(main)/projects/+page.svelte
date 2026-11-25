@@ -1,19 +1,14 @@
 <script lang="ts">
-  import { apiFetch } from "#lib/api.ts";
-  import { Search } from "@lucide/svelte";
-  import { onMount } from "svelte";
-  import type { Project, StatusFilter } from "./types/ProjectType";
+  import CreateProjectModal from "./components/CreateProjectModal.svelte";
+  import ProjectContent from "./components/ProjectContent.svelte";
   import ProjectHeader from "./components/ProjectHeader.svelte";
   import { ProjectsStore } from "./hooks/Projects.svelte";
 
   const store = new ProjectsStore();
-
-  onMount(() => {
-    store.loadProjects();
-  });
-  
 </script>
 
-<section class="w-full h-full px-3 py-4">
+<section class="w-full h-full px-10 py-8 bg-primary-background">
   <ProjectHeader {store} />
+  <ProjectContent {store} />
+  <CreateProjectModal {store} />
 </section>
